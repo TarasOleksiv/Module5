@@ -38,7 +38,11 @@ public class CarWheel {
     }
 
     public void abradeTire(double x){
-        tirestate = tirestate * (1 - (x / 100));
+        if ((x >= 0) && (x <= 100)){
+            tirestate = tirestate * (1 - (x / 100));
+        } else {
+            System.out.println("Неможливо виконати дію. Введене число повинно міститись у проміжку [0,100]");
+        }
     }
 
     public double getTireState(){
