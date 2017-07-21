@@ -14,8 +14,8 @@ public class Car {
     private int totalNumberOfPassengers;    //вмістимість пасажирів
     private int currentNumberOfPassengers;  //кількість пасажирів в поточний момент
     private int currentSpeed;       //поточна швидкість
-    private CarDoor[] cardoors = new CarDoor[MAX_DOORS - 1];     //масив з 4 дверей
-    private CarWheel[] carwheels = new CarWheel[MAX_WHEELS - 1];      //масив з 10 коліс
+    private CarDoor[] cardoors = new CarDoor[MAX_DOORS];     //масив з 4 дверей
+    private CarWheel[] carwheels = new CarWheel[MAX_WHEELS];      //масив з 10 коліс
     private int wheelCounter;       //поточна кількість коліс на машині
     private static final int MAX_DOORS = 4;     //максимальна кількість дверей
     private static final int MAX_WHEELS = 10;     //максимальна кількість дверей
@@ -23,6 +23,8 @@ public class Car {
     // constructor1
     public Car(int releaseDate) {
         this.releaseDate = releaseDate;
+        this.setCarDoors();
+        this.setCarWheels();
     }
 
     // constructor2
@@ -35,6 +37,8 @@ public class Car {
         this.totalNumberOfPassengers = totalNumberOfPassengers;
         this.currentNumberOfPassengers = currentNumberOfPassengers;
         this.currentSpeed = currentSpeed;
+        this.setCarDoors();
+        this.setCarWheels();
     }
 
     //methods
@@ -47,6 +51,11 @@ public class Car {
         }
     }
 
+    //отримати поточну швидкість
+    public int getCurrentSpeed(){
+        return currentSpeed;
+    }
+
     //посадити 1 пасажира в машину
     public void takeOnePassenger(){
         if (currentNumberOfPassengers >= totalNumberOfPassengers){
@@ -54,6 +63,11 @@ public class Car {
         } else {
             currentNumberOfPassengers++;
         }
+    }
+
+    //отримати поточну кількість пасажирів у машині
+    public int getCurrentNumberOfPassengers(){
+        return currentNumberOfPassengers;
     }
 
     //метод для перевірки присутності пасажирів у машині
@@ -81,27 +95,37 @@ public class Car {
 
     //ініціалізація дверей
     public void setCarDoors(){
-        for (CarDoor cardoor : cardoors){
-            cardoor = new CarDoor();
+        for (int i = 0; i < MAX_DOORS; i++){
+            cardoors[i] = new CarDoor();
         }
     }
 
     //ініціалізація коліс
     public void setCarWheels(){
         wheelCounter = 4;
-        for (int i=0; i <=3; i++){
+        for (int i=0; i < wheelCounter; i++){
             carwheels[i] = new CarWheel();
         }
     }
 
     //отримати двері по індексу
     public CarDoor getCarDoor(int i){
-        return cardoors[i];
+        if ((i >= 0) && (i <= MAX_DOORS-1)){
+            return cardoors[i];
+        } else {
+            System.out.println("Дверей з таким індексом не існує.");
+            return null;
+        }
     }
 
     //отримати колесо по індексу
     public CarWheel getCarWheel(int i){
-        return carwheels[i];
+        if ((i >= 0) && (i <= wheelCounter-1)){
+            return carwheels[i];
+        } else {
+            System.out.println("Коліс з таким індексом не існує.");
+            return null;
+        }
     }
 
     //зняти всі колеса з машини
