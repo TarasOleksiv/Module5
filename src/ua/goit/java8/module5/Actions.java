@@ -14,6 +14,11 @@ public class Actions {
     private static CarWheel carWheel = new CarWheel();
     private static CarDoor cardoor = new CarDoor();
     private static Car car = new Car(2017,"External",180,10,5,1,0);
+    private static double minTireState = 1;     //мінімум по стертості серед шин
+
+    public static double getMinTireState(){
+        return minTireState;
+    }
 
     public static void main(String[] args) {
         chooseMainTask();
@@ -104,10 +109,11 @@ public class Actions {
                 System.out.println("Поточна кількість коліс на машині: " + car.getCurrentNumberOfWheels());
                 break;
             case "9":
-                System.out.println("поточна можлива максимальна швидкість: " + car.getCurrentMaxSpeed());
+                System.out.println("поточна можлива максимальна швидкість: " + car.getCurrentMaxSpeed(minTireState));
                 break;
             case "10":
-                car.showinfo();
+                car.showInfoShort();
+                System.out.println("поточна можлива максимальна швидкість: " + car.getCurrentMaxSpeed(minTireState));
                 break;
             default:
                 return;
@@ -174,10 +180,11 @@ public class Actions {
                 System.out.println("Нову шину встановлено");
                 break;
             case "2":
-                System.out.print("на скільки відсотків стерти шину? Введіть число від 0 до 100: ");
+                System.out.print("На скільки відсотків стерти шину? Введіть число від 0 до 100: ");
                 double x = sc.nextDouble();
                 sc.nextLine();
                 carWheel.abradeTire(x);
+                minTireState = (minTireState <= carWheel.getTireState())?minTireState:carWheel.getTireState();
                 System.out.println("Шину стерто на " + x + "%");
                 carWheel.showInfo();
                 break;
