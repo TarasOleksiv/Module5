@@ -50,6 +50,6 @@ public class CarWheel {
     }
 
     public void showInfo(){
-        System.out.println("Стан шини - " + getTireState());
+        System.out.println("Стан шини - " + getTireState() + "% від нової.");
     }
 }
