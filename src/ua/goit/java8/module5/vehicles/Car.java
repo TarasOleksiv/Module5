@@ -1,6 +1,8 @@
 package ua.goit.java8.module5.vehicles;
 
 
+import ua.goit.java8.module5.Actions;
+
 /**
  * Created by t.oleksiv on 19/07/2017.
  */
@@ -19,6 +21,7 @@ public class Car {
     private int wheelCounter;       //поточна кількість коліс на машині
     private static final int MAX_DOORS = 4;     //максимальна кількість дверей
     private static final int MAX_WHEELS = 10;     //максимальна кількість дверей
+
 
     // constructor1
     public Car(int releaseDate) {
@@ -149,16 +152,16 @@ public class Car {
     }
 
     //обчислити поточну можливу максимальну швидкість
-    public double getCurrentMaxSpeed(){
+    public double getCurrentMaxSpeed(double minTWheel){
         if ((currentNumberOfPassengers == 0) || (wheelCounter == 0)){
             return 0;
         } else {
-            return maxSpeed * getMinTireWheel();
+            return maxSpeed * minTWheel;
         }
     }
 
     //отримати найбільш стерте колесо
-    private double getMinTireWheel(){
+    public double getMinTireWheel(){
         double result = carwheels[0].getTireState();
         for (int i = 0; i < wheelCounter; i++){
             result = (carwheels[i].getTireState() < result)?carwheels[i].getTireState():result;
@@ -172,7 +175,12 @@ public class Car {
     }
 
     //вивести всю інфу на консоль
-    public void showinfo(){
+    public void showInfo(){
+        showInfoShort();
+        System.out.println("Поточна можлива максимальна швидкість: " + getCurrentMaxSpeed(getMinTireWheel()));
+    }
+
+    public void showInfoShort(){
         System.out.println("Дата виробництва машини: " + releaseDate);
         System.out.println("Тип двигуна: " + engineType);
         System.out.println("Максимальна швидкість нової машини: " + maxSpeed);
@@ -181,6 +189,5 @@ public class Car {
         System.out.println("Кількість пасажирів на даний момент: " + currentNumberOfPassengers);
         System.out.println("Поточна кількість коліс: " + wheelCounter);
         System.out.println("Поточна швидкість: " + currentSpeed);
-        System.out.println("Поточна можлива максимальна швидкість: " + getCurrentMaxSpeed());
     }
 }
